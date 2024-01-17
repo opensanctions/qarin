@@ -12,7 +12,13 @@
 * Cultural equivalence
     * `Alexander` becomes `Sasha`, `Robert` becomes `Bob`
 
-### Companies
+## Name frequency
+
+Basically: how likely is it that a person called `John Smith` is unique? This is a great question to ask in internal deduplication, but not relevant at all in sanctions screening. Do we still want to work on it?
+
+* See [followthemoney-compare](https://github.com/alephdata/followthemoney-compare)
+
+## Companies
 
 * Abbreviation
     * `Gesellschaft mit beschränkter Haftung` becomes `GmbH`
