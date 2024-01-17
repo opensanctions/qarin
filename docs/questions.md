@@ -11,6 +11,8 @@
     * `Oleksandr` becomes `Alexander`
 * Cultural equivalence
     * `Alexander` becomes `Sasha`, `Robert` becomes `Bob`
+* Straight-up lookup based variance
+    * Western companies totally renaming as they go into China
 
 ## Name frequency
 
@@ -33,3 +35,13 @@ Basically: how likely is it that a person called `John Smith` is unique? This is
     * Determining human gender based on name
     * Determining nationality (!) based on name
 * Extracting names from descriptive text
+
+## The Law
+
+### OFAC
+
+The US sanctions authority got into a whole discussion with the industry it regulates about how to do name matching. They seem unhappy they did that.
+
+See: 
+* [Assessing OFAC Name Matches](https://ofac.treasury.gov/faqs/topic/1591)
+* [How is the Score calculated?](https://ofac.treasury.gov/faqs/249)

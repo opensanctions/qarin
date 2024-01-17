@@ -3,13 +3,14 @@
 ## Industry
 
 * Really interesting reading: https://developer.screena.ai/#introduction 
+* Rosette: https://www.babelstreet.com/rosette - industry name matching software
+    * [Match Identity](https://www.babelstreet.com/rosette/match-identity)
 * OpenRefine normalisation documentation: https://openrefine.org/docs/technical-reference/clustering-in-depth
 * [probablepeople](https://parserator.datamade.us/probablepeople/): a name component parser, open source
 
 * International Components for Unicode: transliteration info in Unicode
     * ICU interactive tool: https://icu4c-demos.unicode.org/icu-bin/translit 
     * [PyICU](https://pypi.org/project/PyICU/)
-
 
 ## OCCRP
 
@@ -32,3 +33,8 @@ Consulted for OCCRP on record linkage - we should call [Micha](https://micha.cod
 
 * [followthemoney-predict](https://github.com/alephdata/followthemoney-predict/tree/master)
 * [followthemoney-compare](https://github.com/alephdata/followthemoney-compare) contains lots of cool word on name frequencies
+
+## Python tooling
+
+* [rapidfuzz](https://github.com/rapidfuzz/RapidFuzz) - C/numpy implementations of string distance
+    * docs: https://rapidfuzz.github.io/RapidFuzz/Usage/process.html 
