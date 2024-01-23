@@ -1,0 +1,1 @@
+"""Qarin is a python package for training and running name matching algorithms."""

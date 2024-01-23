@@ -1,0 +1,1 @@
+"""This module contains scripts for evaluation of name matching algorithms and displaying the results."""

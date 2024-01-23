@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "qarin"
+version = "0.1.0"
+description = "Qarin: better name matching for screening tools"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.4.4"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+create_dataset = 'data.create_dataset:create'
+evaluate = 'evaluations.evaluate:run'
