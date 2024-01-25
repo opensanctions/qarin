@@ -2,6 +2,16 @@
 
 This repository contains the discussion materials and output for a research project into name matching in screening tools. Name matching is a difficult tasks which aims to traverse both technical and cultural variations in how a human or company name is expressed. This project will establish a framework for name matching quality assessment, build relevant open data sets, and eventually propose some open source algorithms.
 
+## Repository Structure
+
+The repository is structured as follows:
+
+* `data/` contains scripts to generate and process the data sets used in the project.
+* `docs/` contains the project documentation.
+* `evaluations/` contains the scripts to evaluate name matching algorithms and display the results.
+* `qarin/` contains the source code for the Qarin Name Matching library.
+* `tests/` contains the unit tests for the Qarin Name Matching library.
+
 ## License and funding
 
 Qarin is licensed under the terms of the MIT license, included in `LICENSE`.
