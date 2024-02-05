@@ -8,8 +8,10 @@ The repository is structured as follows:
 
 * `data/` contains scripts to generate and process the data sets used in the project.
 * `docs/` contains the project documentation.
-* `evaluations/` contains the scripts to evaluate name matching algorithms and display the results.
-* `qarin/` contains the source code for the Qarin Name Matching library.
+* `qarin/` contains the source code for the Qarin library.
+    * `evaluate/` contains the code for the evaluation of name matching algorithms.
+    * `match/` contains the code for the name matching algorithms.
+    * `train/` contains the code for the training of name matching algorithms.
 * `tests/` contains the unit tests for the Qarin Name Matching library.
 
 ## License and funding
