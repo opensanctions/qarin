@@ -28,9 +28,11 @@
     [(name, name_part), ('Friedrich Lindenberg', 'full_person'), ('Lindenberg', 'last_person')]
 * How to properly evaluate? How do we make sure we don't overfit our own evaluation set?
 
+
 ## Workstream: Do it live!
 
 * Are the new models/algorithms fast enough?
+    * Optimize memory usage
 
 
 ## Workstream: What the fuck is this?

@@ -15,6 +15,11 @@ nomenklatura = "^3.10.3"
 faker = "^22.6.0"
 python-dotenv = "^1.0.1"
 sentence-transformers = "^2.3.1"
+pandas = "^2.2.0"
+pyarrow = "^15.0.0"
+matplotlib = "^3.8.2"
+tqdm = "^4.66.1"
+ipywidgets = "^8.1.1"
 
 [build-system]
 requires = ["poetry-core"]
