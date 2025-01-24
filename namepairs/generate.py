@@ -2,7 +2,7 @@ import csv
 import orjson
 import logging
 from pathlib import Path
-from typing import Dict, List, Set, Tuple
+from typing import Dict, Set, Tuple
 from itertools import combinations
 from followthemoney import model
 from followthemoney.types import registry
@@ -11,59 +11,89 @@ from nomenklatura.util import bool_text
 
 log = logging.getLogger("genpairs")
 
-ENTITIES_PATH = Path("/Users/pudo/Downloads/default.json")
+STATEMENTS_PATH = Path("/Users/pudo/Data/statements.csv")
+SCHEMATA = ("Organization", "Person", "Company", "PublicBody")
 HEADERS = ["left", "right", "match", "type"]
 DEDUPED_DATASETS = set(
     [
         "eu_fsf",
         "us_ofac_sdn",
-        "ca_dfatd_sema_sanctions",
         "gb_hmt_sanctions",
-        "ar_repet",
         "wikidata",
         "ext_gleif",
     ]
 )
 
+
+class Name:
+    """A typed name of an entity."""
+
+    __slots__ = ["name", "lang"]
+
+    def __init__(self, name: str, lang: str):
+        self.name = name
+        self.lang = lang
+
+    def __hash__(self) -> int:
+        return hash((self.name, self.lang))
+
+    def __eq__(self, other: "Name") -> bool:
+        return self.name == other.name and self.lang == other.lang
+
+    def __repr__(self) -> str:
+        return f"{self.name} ({self.lang})"
+
+    def __str__(self) -> str:
+        return self.name
+
+
 ENTITY_TYPES: Dict[str, str] = {}
-ENTITY_NAMES: Dict[str, Set[str]] = {}
+ENTITY_NAMES: Dict[str, Set[Name]] = {}
 ENTITY_DATASETS: Dict[str, Set[str]] = {}
 NAME_TYPES: Dict[str, str] = {}
 
 
 def load_entities():
-    log.info("Loading entities: %s..." % ENTITIES_PATH.as_posix())
+    log.info("Loading entities: %s..." % STATEMENTS_PATH.as_posix())
     name_count = 0
-    with open(ENTITIES_PATH, "rb") as fh:
-        while line := fh.readline():
-            obj = orjson.loads(line)
-            entity = Entity.from_dict(model, obj)
-            if not entity.schema.is_a("Organization") and not entity.schema.is_a(
-                "Person"
-            ):
+    with open(STATEMENTS_PATH, "r") as fh:
+        for row in csv.DictReader(fh):
+            if row["schema"] not in SCHEMATA:
                 continue
-            type = "ORG" if entity.schema.is_a("Organization") else "PER"
+            if row["prop_type"] != "name":
+                continue
+            type = "PER" if row["schema"] == "Person" else "ORG"
+            canonical_id = row["canonical_id"]
+            schema = model.get(row["schema"])
+            if schema is None:
+                continue
+            prop = schema.get(row["prop"])
+            if prop is None or not prop.matchable:
+                continue
 
-            names: Set[str] = set()
-            for name in entity.get_type_values(registry.name, matchable=True):
-                if type == "PER":
-                    if "/" in name or "(" in name:
-                        continue
-                if " " not in name:
+            name = row["value"]
+            if type == "PER":
+                if "/" in name or "(" in name:
                     continue
-                if len(name) < 4:
-                    continue
-                names.add(name)
-                name_count += 1
-                if name in NAME_TYPES and NAME_TYPES[name] != type:
-                    NAME_TYPES[name] = "ANY"
-                else:
-                    NAME_TYPES[name] = type
-            if len(names) == 0:
+            if " " not in name:
                 continue
-            ENTITY_TYPES[entity.id] = type
-            ENTITY_DATASETS[entity.id] = entity.datasets
-            ENTITY_NAMES[entity.id] = names
+            if len(name) < 4:
+                continue
+            # if name in NAME_TYPES and NAME_TYPES[name] != type:
+            #     NAME_TYPES[name] = "ANY"
+            # else:
+            #     NAME_TYPES[name] = type
+            # if len(names) == 0:
+            #     continue
+            name_obj = Name(name, row["lang"])
+            name_count += 1
+            ENTITY_TYPES[canonical_id] = type
+            if canonical_id not in ENTITY_DATASETS:
+                ENTITY_DATASETS[canonical_id] = set()
+            ENTITY_DATASETS[canonical_id].add(row["dataset"])
+            if canonical_id not in ENTITY_NAMES:
+                ENTITY_NAMES[canonical_id] = set()
+            ENTITY_NAMES[canonical_id].add(name_obj)
 
     log.info("Loaded %s entities with %s names.", len(ENTITY_NAMES), name_count)
 
