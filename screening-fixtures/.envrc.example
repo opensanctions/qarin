@@ -1,0 +1,10 @@
+# Example environment configuration for namegen
+# Copy to .envrc and update with your API keys
+
+export ANTHROPIC_API_KEY="your_anthropic_api_key_here"
+
+# Optional: Set random seed for reproducible generation
+# export NAMEGEN_SEED=12345
+
+# Optional: Configure default batch size for LLM generation
+# export NAMEGEN_BATCH_SIZE=25
